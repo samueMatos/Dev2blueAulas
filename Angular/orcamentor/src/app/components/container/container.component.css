@@ -1,0 +1,24 @@
+.container {
+    padding: 2em;
+  }
+
+  .container__header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .container__body {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+  }
+
+  h1 {
+    color: #333;
+  }
+
+  h2 {
+    color: #555;
+  }

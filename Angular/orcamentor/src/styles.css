@@ -1,0 +1,12 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  body {
+    font-family: 'Inter', sans-serif; /* Fonte moderna */
+    background-color: #fafafa; /* Fundo cinza muito claro */
+    margin: 0;
+    padding: 0;
+  }
+  

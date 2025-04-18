@@ -1,0 +1,31 @@
+<div class="d-flex vh-100 justify-content-center align-items-center">
+    <div class="card p-4 shadow" style="width: 100%; max-width: 400px;">
+        <h2 class="text-center mb-4">Login</h2>
+
+        <form #form="ngForm" (submit)="login(form)">
+            <div class="mb-3">
+                <label for="email" class="form-label">E-mail:</label>
+                <input 
+                    type="email" 
+                    class="form-control" 
+                    id="email" 
+                    name="email"
+                    [(ngModel)]="loginRequest.email"
+                    required
+                    >
+            </div>
+
+            <div class="mb-3">
+                <label for="senha" class="form-label">Senha:</label>
+                <input 
+                    type="password" 
+                    class="form-control" 
+                    id="senha" 
+                    [(ngModel)]="loginRequest.senha"
+                    name="senha" 
+                    required>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Entrar</button>
+        </form>
+    </div>
