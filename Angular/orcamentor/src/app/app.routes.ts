@@ -10,5 +10,5 @@ export const routes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'contatos', component: ContainerComponent },
     { path: 'contato-cadastro', component: ContatoCadastroComponent },
-    //Aki criar a rota de contato-cadastro/{id}
+    { path: 'contato-cadastro/:id', component: ContatoCadastroComponent },
 ];

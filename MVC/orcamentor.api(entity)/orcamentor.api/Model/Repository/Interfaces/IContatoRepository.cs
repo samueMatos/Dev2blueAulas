@@ -8,6 +8,7 @@ namespace orcamentor.api.Model.Repository.Interfaces
         Task<Contato> BuscarPorId(int id);
         Task<Contato> Login(LoginRequest loginRequest);
         Task<Contato> Salvar(Contato contato);
+        Task<bool> Excluir(int id);
     }
 
     public interface ICarroRepository

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ContatoRequest, ContatoService } from '../../services/contato.service';
 
 @Component({
@@ -18,15 +18,38 @@ export class ContatoCadastroComponent {
     email: '',
     numero: ''
   }
+  id: number = 0;
+
+
+
+  constructor(private router: Router, private contatoService: ContatoService, private routerActive : ActivatedRoute) { } 
+
 
 
   ngOnInit(): void {
-    //buscar por id 
-    //atribuir ao contatoReuest
+
+    this.id = Number(this.routerActive.snapshot.paramMap.get('id'));
+ 
+    if(this.id > 0){
+      this.burcarPorId();
+    }
+    
   }
 
+  burcarPorId(){
+    this.contatoService.buscarPosId(this.id).subscribe({
+      next: (response) => {
+        this.contatoRequest = response;
+      },
+      error: (erro) => {
+        alert('Ocorreu um erro ao buscar os contatos na api => /api/Contatos');
+        console.log(`Ocorreu um erro ao realizar a requisição: ${erro}`);
+      },
+    });
 
-  constructor(private router: Router, private contatoService: ContatoService) { } 
+
+  }
+
 
   salvar(form: any){
 

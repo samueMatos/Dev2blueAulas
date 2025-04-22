@@ -31,9 +31,13 @@ namespace orcamentor.api.Model.Repository
            return login;
         }
 
-        public async Task<Contato?> BuscarPorId(int id)
+        public async Task<Contato> BuscarPorId(int id)
         {
-            return await _appDbContext.Contatos.FindAsync();
+            var lContato = await _appDbContext.Contatos.FirstOrDefaultAsync(a => a.Id == id);
+            if (lContato != null)
+                return lContato;
+
+            throw new Exception("Contato não encontrado!");
         }
 
         public async Task<Contato> Salvar(Contato contato)
@@ -79,6 +83,29 @@ namespace orcamentor.api.Model.Repository
             catch (Exception e)
             {
                 Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public async Task<bool> Excluir(int id)
+        {
+            try
+            {
+                var contatoExcluir = _appDbContext.Contatos.FirstOrDefault(a => a.Id == id);
+
+                if (contatoExcluir != null)
+                {
+                    _appDbContext.Contatos.Remove(contatoExcluir);
+                    await _appDbContext.SaveChangesAsync();
+                    return true;
+                }
+
+                throw new Exception("Contato não encontrado!");
+
+            }
+            catch (Exception e)
+            {
+
                 throw;
             }
         }

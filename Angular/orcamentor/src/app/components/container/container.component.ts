@@ -34,22 +34,28 @@ export class ContainerComponent {
     });
   }
 
-  // obterDados():void {
-  //   let endpoint = "https://localhost:7299/WeatherForecast";
-  //   this.http.get(endpoint).subscribe({
-  //     next: (response) =>{
-  //       this.dados = response;
-  //       console.log(this.dados);
-  //     },
-  //     error: (erro) => {
-  //       console.log('Erro ao obter dados: ' + erro)
-  //     }
-  //   });
-  // }
 
-  //Aki implementar a chamada no back com a service de contatos
-  removeItem(index: number) {
-    this.contatos.splice(index, 1);
+  editarItem(id: number) {
+    this.router.navigate(['/contato-cadastro', id]);
+  }
+
+  removeItem(id: number) {
+    this.contatoService.excluir(id).subscribe({
+      next: (response) => {
+        this.obterContatos();
+        alert('Contato excluido com sucesso!');
+      },
+      error: (erro) => {
+
+        if (erro.status === 404) {
+          alert('Contato não encontrado!');
+          return;
+        }
+
+        alert('Ocorreu um erro ao exclir o contato na api => /api/Contatos');
+        console.log(`Ocorreu um erro ao realizar a requisição: ${erro}`);        
+      },
+    });
   }
 
   filter(filtro: string) {
@@ -60,7 +66,6 @@ export class ContainerComponent {
 
   addItem() {
     this.router.navigate(['/contato-cadastro']);
-   // this.contatos.push({ nome: 'Novo contato', email: ' ', telefone: ' ' });
   }
 
   @Input() titulo: string = 'Contatos';

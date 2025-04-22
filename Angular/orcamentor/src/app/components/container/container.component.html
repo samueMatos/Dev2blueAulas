@@ -15,7 +15,8 @@
       [numero]="item.numero"
       [email]="item.email"
     >
-      <button class="btn btn-danger" (click)="removeItem($index)">Deletar</button>
+      <button class="btn btn-danger" (click)="removeItem(item.id)">Deletar</button>
+      <button class="btn btn-primary" (click)="editarItem(item.id)">Editar</button>
     </app-contato>
     }
 
