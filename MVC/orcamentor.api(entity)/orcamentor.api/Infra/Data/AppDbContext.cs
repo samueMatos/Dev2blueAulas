@@ -9,7 +9,18 @@ namespace orcamentor.api.Infra.Data
 
         public DbSet<Contato> Contatos { get; set; }
         
+        //Exemplo de relacionamento 1 - 1
         public DbSet<Endereco> Endereco { get; set; }
+        
+        public DbSet<Produto> Produto { get; set; }
+        
+        //Exemplo de relacionamento 1 - N
+        public DbSet<Categoria> Categoria { get; set; }
+        
+        
+        //Exemplo de relacionamento n - n entre aluno e curso
+        public DbSet<AlunoBlu> AlunosBlu { get; set; }
+        public DbSet<Curso> Cursos { get; set; }
     }
 
     public class AppCarruxDbContext : DbContext

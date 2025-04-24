@@ -58,19 +58,15 @@ namespace orcamentor.api.Model.Repository
 
                 #endregion
                 
-                
-                
-                
                 if (contato.Id > 0)
                 {
                     var contatoEditar = _appDbContext.Contatos.FirstOrDefault(a => a.Id == contato.Id);
-
+                    
                     if (contatoEditar == null)
                     {
                         throw new Exception("Contato não encontrado!");
                     }
-                    
-                  
+
                     if (contato.Senha != contatoEditar.Senha)
                     { 
                         var senhaNova = CriptografiaSHA1.CriptografarSenha(contato.Senha); 

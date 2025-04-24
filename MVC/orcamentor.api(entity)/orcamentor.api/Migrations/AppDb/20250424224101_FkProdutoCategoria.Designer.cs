@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using orcamentor.api.Infra.Data;
 
@@ -10,9 +11,11 @@ using orcamentor.api.Infra.Data;
 namespace orcamentor.api.Migrations.AppDb
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250424224101_FkProdutoCategoria")]
+    partial class FkProdutoCategoria
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -20,38 +23,6 @@ namespace orcamentor.api.Migrations.AppDb
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
-
-            modelBuilder.Entity("AlunoBluCurso", b =>
-                {
-                    b.Property<int>("AlunosBluId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CursosId")
-                        .HasColumnType("int");
-
-                    b.HasKey("AlunosBluId", "CursosId");
-
-                    b.HasIndex("CursosId");
-
-                    b.ToTable("AlunoBluCurso");
-                });
-
-            modelBuilder.Entity("orcamentor.api.Model.AlunoBlu", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AlunosBlu");
-                });
 
             modelBuilder.Entity("orcamentor.api.Model.Categoria", b =>
                 {
@@ -97,23 +68,6 @@ namespace orcamentor.api.Migrations.AppDb
                     b.HasKey("Id");
 
                     b.ToTable("Contatos");
-                });
-
-            modelBuilder.Entity("orcamentor.api.Model.Curso", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Cursos");
                 });
 
             modelBuilder.Entity("orcamentor.api.Model.Endereco", b =>
@@ -170,21 +124,6 @@ namespace orcamentor.api.Migrations.AppDb
                     b.HasIndex("CategoriaId");
 
                     b.ToTable("Produto");
-                });
-
-            modelBuilder.Entity("AlunoBluCurso", b =>
-                {
-                    b.HasOne("orcamentor.api.Model.AlunoBlu", null)
-                        .WithMany()
-                        .HasForeignKey("AlunosBluId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("orcamentor.api.Model.Curso", null)
-                        .WithMany()
-                        .HasForeignKey("CursosId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("orcamentor.api.Model.Endereco", b =>
