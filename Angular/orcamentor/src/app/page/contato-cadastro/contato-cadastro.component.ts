@@ -33,7 +33,7 @@ export class ContatoCadastroComponent {
     if(this.id > 0){
       this.burcarPorId();
     }
-    
+
   }
 
   burcarPorId(){
@@ -46,8 +46,6 @@ export class ContatoCadastroComponent {
         console.log(`Ocorreu um erro ao realizar a requisição: ${erro}`);
       },
     });
-
-
   }
 
 

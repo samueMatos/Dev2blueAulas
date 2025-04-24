@@ -2,6 +2,7 @@
 using orcamentor.api.Controllers.Objects;
 using orcamentor.api.Infra.Data;
 using orcamentor.api.Model.Repository.Interfaces;
+using orcamentor.api.Utils;
 
 namespace orcamentor.api.Model.Repository
 {
@@ -21,7 +22,10 @@ namespace orcamentor.api.Model.Repository
         
         public async Task<Contato> Login( LoginRequest loginRequest)
         {
-           var login= await _appDbContext.Contatos.FirstOrDefaultAsync(a=>a.Email == loginRequest.email);
+            
+            
+           var login= await _appDbContext.Contatos.FirstOrDefaultAsync(a=>a.Email == loginRequest.email 
+                                                                          && a.Senha == CriptografiaSHA1.CriptografarSenha(loginRequest.senha));
         
            if (login==null)
            {
@@ -66,12 +70,20 @@ namespace orcamentor.api.Model.Repository
                         throw new Exception("Contato não encontrado!");
                     }
                     
+                  
+                    if (contato.Senha != contatoEditar.Senha)
+                    { 
+                        var senhaNova = CriptografiaSHA1.CriptografarSenha(contato.Senha); 
+                        contatoEditar.Senha = senhaNova;
+                    }
+                        
                     contatoEditar.Email = contato.Email;
                     contatoEditar.Nome = contato.Nome;
                     contatoEditar.Numero = contato.Numero;
                 }
                 else
                 {
+                    contato.Senha = CriptografiaSHA1.CriptografarSenha(contato.Senha);
                     _appDbContext.Contatos.Add(contato);
                 }
                 

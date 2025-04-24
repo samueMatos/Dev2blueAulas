@@ -20,6 +20,8 @@ public class AuthController : ControllerBase
     {
         try
         {
+            
+            
             var login = _repository.Login(loginRequest).Result;
             return Ok(new LoginResponse() { Token = login.Id.ToString() });
         }
